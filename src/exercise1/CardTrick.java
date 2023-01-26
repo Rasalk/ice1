@@ -1,5 +1,5 @@
 package exercise1;
-
+import java.util.*;
 /**
  * A class that fills a hand of 7 cards with random Card Objects and then asks the user to pick a card.
  * It then searches the array of cards for the match to the user's card. 
@@ -7,31 +7,64 @@ package exercise1;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 25, 2022 
+ * @author Rasal Kareem Jan 25, 2023
  */
 public class CardTrick {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
+       Scanner in = new Scanner(System.in);
+       
+        Card randomcard = new Card();
         
         Card[] hand = new Card[7];
-
-        for (int i = 0; i < hand.length; i++) {
-            Card card = new Card();
-            //card.setValue(insert call to random number generator here)
-            // 
-            //card.setSuit(Card.SUITS[insert call to random number between 0-3 here])
-            // Hint: You can use Random -> random.nextInt(n) to get a random number between 0 and n-1 (inclusive)
-            //       Don't worry about duplicates at this point
+       
+       
+        for (int i = 0; i < hand.length; i++)
+        {
+            randomcard.setValue((int)(1+Math.random()*13));
+            
+            randomcard.setSuit(Card.SUITS[(int)(0+Math.random()*3)]);
+            hand[i] = randomcard;
+            System.out.println(hand[i].getValue()+" "+hand[i].getSuit());
         }
-
+        
+        Card InputCard = new Card();
+        Scanner Firstval = new Scanner(System.in);
+        System.out.println("Enter a number from 1-13(11 for Jack,12 for Queen, 13 for King) : ");
+        InputCard.setValue(Firstval.nextInt());
+        
+        Scanner Secondval = new Scanner(System.in);
+        System.out.println("Enter a for Card Suit (1 Hearts,2 Diamonds,3 Spades,4 Clubs) : ");
+        InputCard.setSuit(Card.SUITS[(in.nextInt()-1)]);
+        
+        System.out.println(InputCard.getValue()+ " " +InputCard.getSuit());//To print the user card
+        
         // insert code to ask the user for Card value and suit, create their card
         // and search the hand here. 
         // Hint: You can ask for values 1 to 10, and then
-        //       11 for jack, 12 for queen, etc. (remember arrays are 0-based though)
-        //       1 for Hearts, 2 for Diamonds, etc. (remember arrays are 0-based though)
-        // 
-        // Then loop through the cards in the array to see if there's a match.
+        //11 for jack, 12 for queen, etc. (remember arrays are 0-based though)
+        // 1 for Hearts, 2 for Diamonds, etc. (remember arrays are 0-based though)
         
-        // If the guess is successful, invoke the printInfo() method below.
+        boolean value = false;
+        for(int i = 0; i< hand.length; i++)
+        {
+            if(InputCard.getValue()== hand[i].getValue() && InputCard.getSuit()== hand[i].getSuit()){
+                value = true;
+            }
+            else continue;
+        }
+        
+        if(value)
+        {
+            System.out.println("Hurray! A Match has been Recorded");
+            printInfo();
+
+        }
+        else{
+            System.out.println("The number you Chose is not in the pack ");
+        }
+
         
     }
 
